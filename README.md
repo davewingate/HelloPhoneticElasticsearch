@@ -1,6 +1,7 @@
 
 # hello_phonetic_elasticsearch
 Demonstrates use of ES as a tool for searching similar English full names.
+
 Key concepts:
  - `Robert` should match as a synonym of `Bob`.
  - Using "fuzzy" levenshtein distance, trivial spelling mistakes should still match:
