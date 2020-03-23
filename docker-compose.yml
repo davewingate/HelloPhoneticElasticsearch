@@ -1,0 +1,30 @@
+version: '2.2'
+services:
+  es01:
+    build: .
+    container_name: hello-phonetic-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - cluster.name=single-node-hello-phonetic-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - hello-phonetic-elasticsearch-data:/usr/share/elasticsearch/data
+      - ./common_first_name_synonyms.txt:/usr/share/elasticsearch/config/common_first_name_synonyms.txt
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - hello-phonetic-elasticsearch-network
+
+volumes:
+  hello-phonetic-elasticsearch-data:
+    driver: local
+
+networks:
+  hello-phonetic-elasticsearch-network:
+    driver: bridge
